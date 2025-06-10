@@ -40,6 +40,9 @@ def questions = [
         ],
 ]
 
+//This map will keep track of the User's answers
+def score = [A:0, B:0, C:0]
+
 //Loop through the Array to show each question
 questions.each { question ->
     println "\n ${question.prompt}"
@@ -52,12 +55,39 @@ questions.each { question ->
     while(true) {
         answer = scanner.nextLine().toUpperCase()
         if(['A', 'B', 'C'].contains(answer)){
+            score[answer]++ //increment the score for the given answer
             break //exit the loop, valid answer given
         } else {
             println "Please enter A, B, or C"
         }
     }
-
-    //TODO: Actually record the answers, provide a result
-
 }
+
+//print score <-uncomment if you want to see the scores
+
+//Now, we can use the scores to give the user their personality result
+def personality = ""
+
+//Finding the Key with the greatest value in the score map
+def maxChoice = score.max{it.value}.key
+
+if(score.A == score.B && score.A == score.C) {
+    maxChoice = "Tie"
+}
+
+switch(maxChoice) {
+    case "A":
+        personality = "You are a calm and introspective person who values personal growth and self care"
+        break
+    case "B":
+        personality = "You are an ambitious and driven person who values success and achievement"
+        break
+    case "C":
+        personality = "You are a social and empathetic person who values relationships and helping others"
+        break
+    default:
+        personality = "You have a personality that can't be defined! How unique."
+}
+
+//Tell the user their result
+println "$name, based on your answers: $personality"
