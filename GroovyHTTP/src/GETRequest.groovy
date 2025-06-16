@@ -3,6 +3,7 @@ import groovy.json.JsonSlurper
 //randomize the pokemon id
 def randomId = new Random().nextInt(1000) + 1 //Random ID between 1 and 1000
 
+//Create the URL to be used in our request
 def apiUrl = "https://pokeapi.co/api/v2/pokemon/${randomId}"
 
 //Establish our Http Connection so we can send a GET request
